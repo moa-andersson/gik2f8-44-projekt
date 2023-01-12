@@ -92,6 +92,14 @@
             </section>
           </form>
           <section class="grid grid-cols-3 gap-3">
+            <div class="col-start-1">
+              <button
+                onclick="renderSonglist()"
+                class="w-full rounded-full bg-gray-500 hover:bg-gray-400 px-4 py-1"
+              >
+                Visa alla CD's
+              </button>
+            </div>
             <form id="submitForm" name="submitForm" class="col-start-2">
               <button
                 name="submitSongButton"
@@ -127,15 +135,7 @@
               alt=""
               class="col-start-1 row-start-1 row-span-4 p-2"
             />
-            <div class="flex-row">
-              <button
-                name="submitTodoForm"
-                class="w-1/4 col-start-3 row-start-4 rounded-full hover:bg-gray-400 px-4 py-1 ml-20"
-                type="submit"
-              >
-                X
-              </button>
-            </div>
+            <div class="flex-row"></div>
           </li>
           <li class="grid grid-cols-3 grid-rows-4 gap-2 bg-gray-100 rounded-lg">
             <h3 class="col-start-2 col-span-2">Titel: Sommartider</h3>
@@ -151,7 +151,7 @@
         </ul>
       </section>
     </main>
-    <script src="Api.js"></script>
+    <script src="api.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

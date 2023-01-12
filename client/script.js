@@ -31,13 +31,12 @@ function renderSong({ id, songTitle, artist, year, genre, imgUrl }) {
       class="col-start-1 row-start-1 row-span-4 p-2"
     />
     <div class="flex-row">
-      <button
-        name="submitTodoForm"
-        class="w-1/4 col-start-3 row-start-4 rounded-full hover:bg-gray-400 px-4 py-1 ml-20"
-        type="submit"
-      >
-        X
-      </button>
+    <button
+    onclick="deleteSong(${id})"
+    class="w-1/4 col-start-3 row-start-4 rounded-full hover:bg-gray-400 px-4 py-1 ml-20"
+  >
+    X
+  </button>
     </div>
   </li>
     
@@ -57,37 +56,61 @@ function onSearch(e) {
   e.preventDefault();
   console.log("söker");
 
-  searchedArtist = document.getElementById("artist").value;
+  //hämtar sökt artist från DOM genom ID/artist och ger det value från inputfältet
+  searchedArtist = document.getElementById("artist").value.toUpperCase();
+  searchedSongTitle = document.getElementById("songTitle").value.toUpperCase();
+
+  // searchedYear
+  //searchedGenre
   console.log(searchedArtist);
 
+  //hämtar allt från api och returnerar songs
   api.getAll().then((songs) => {
+    //tömmer befintlig inner html
     songListElement.innerHTML = "";
+    //som lista för det vi vill söka efter
     let filteredList = [];
+    //for i loop genom arrayen songs
     for (let i = 0; i < songs.length; i++) {
-      if (songs[i].artist == searchedArtist) {
-        filteredList.push(songs[i]);
-        console.log("Hej");
+      //sparar artister från songs i ny variabel i versaler
+      let currentArtist = songs[i].artist.toUpperCase();
+      let currentSongTitle = songs[i].songTitle.toUpperCase();
+      let currentYear = songs[i].year.toUpperCase();
+      let currentGenre = songs[i].genre.toUpperCase();
 
-        //console.log("Hittade: ", filteredList[i].artist);
+      //om vi hittar sökt artist i currentSong pushar vi den till filteredList
+      if (currentArtist.includes(searchedArtist)) {
+        // kolla oatt den inte innehåller objektet redan
+        filteredList.push(songs[i]);
+      }
+      //   if (currentSongTitle.includes(searchedSongTitle) && currentArtist != "") {
+      //     // kolla oatt den inte innehåller objektet redan
+      //     filteredList.push(songs[i]);
+      //   }
+
+      //ifsats för titel
+      //ifsats för år
+      //ifsats för genre
+    }
+
+    //kollar att filteredList inte är null och längre än 0
+    if (filteredList && filteredList.length > 0) {
+      //för varje låt i filteredList renderas låten innan slutet på ul-taggen
+      for (i = 0; i < filteredList.length; i++) {
+        songListElement.insertAdjacentHTML(
+          "beforeend",
+          renderSong(filteredList[i])
+        );
       }
     }
-    // for (x = 0; x < filteredList; x++) {
-    //   console.log(filteredList[x].songTitle);
-    // }
-
-    if (filteredList && filteredList.length > 0) {
-      filteredList.forEach((song) => {
-        songListElement.insertAdjacentHTML("beforeend", renderSong(song));
-      });
-    }
+  });
+  clearFields();
+}
+function deleteSong(id) {
+  api.remove(id).then((result) => {
+    renderSongList();
   });
 }
-// function deleteSong(id) {
-//     api.remove(id).then((result) => {
-
-//     renderSongList();
-//     });
-// }
 
 function saveSong() {
   const song = {
@@ -103,6 +126,22 @@ function saveSong() {
       renderSongList();
     }
   });
+  clearFields();
 }
 
+function deleteSong(id) {
+  api.remove(id).then((result) => {
+    renderSongList();
+  });
+}
+function clearFields() {
+  let songTitleText = document.getElementById("songTitle");
+  let artistText = document.getElementById("artist");
+  let yearText = document.getElementById("artist");
+  let imgText = document.getElementById("artist");
+  songTitleText.value = "";
+  artistText.value = "";
+  yearText.value = "";
+  imgText.value = "";
+}
 renderSonglist();
