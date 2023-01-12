@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "songTitle": "Sommartider",
+    "artist": "Gyllene Tider",
+    "year": "1982",
+    "genre": "Pop",
+    "imgUrl": "https://upload.wikimedia.org/wikipedia/en/3/38/GT_sommartider_single_cover.jpg"
+  },
+  { "id": 3, "songTitle": "Sommartider" },
+  { "id": 5, "songTitle": "Use somebody" }
+]
