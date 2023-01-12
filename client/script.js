@@ -49,15 +49,60 @@ function renderSong({ id, songTitle, artist, year, genre, imgUrl }) {
 function onSubmit(e) {
   e.preventDefault();
   console.log("Skapar ny låt");
-  //   e.preventDefault();
-  //   if (titleValid && descriptionValid && dueDateValid) {
-  //     console.log("Submit");
-  //     saveTask();
-  //     clearFields();
-  //   }
+  // if (titleValid && descriptionValid && dueDateValid) {}
+  saveSong();
+  //clearFields();
 }
 function onSearch(e) {
   e.preventDefault();
-  console.log("söker", e);
+  console.log("söker");
+
+  searchedArtist = document.getElementById("artist").value;
+  console.log(searchedArtist);
+
+  api.getAll().then((songs) => {
+    songListElement.innerHTML = "";
+    let filteredList = [];
+    for (let i = 0; i < songs.length; i++) {
+      if (songs[i].artist == searchedArtist) {
+        filteredList.push(songs[i]);
+        console.log("Hej");
+
+        //console.log("Hittade: ", filteredList[i].artist);
+      }
+    }
+    // for (x = 0; x < filteredList; x++) {
+    //   console.log(filteredList[x].songTitle);
+    // }
+
+    if (filteredList && filteredList.length > 0) {
+      filteredList.forEach((song) => {
+        songListElement.insertAdjacentHTML("beforeend", renderSong(song));
+      });
+    }
+  });
 }
+// function deleteSong(id) {
+//     api.remove(id).then((result) => {
+
+//     renderSongList();
+//     });
+// }
+
+function saveSong() {
+  const song = {
+    songTitle: songForm.songTitle.value,
+    artist: songForm.artist.value,
+    year: songForm.year.value,
+    genre: songForm.genre.value,
+    imgUrl: songForm.imgUrl.value,
+  };
+
+  api.create(song).then((song) => {
+    if (song) {
+      renderSongList();
+    }
+  });
+}
+
 renderSonglist();
