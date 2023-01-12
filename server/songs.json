@@ -7,6 +7,13 @@
     "genre": "Pop",
     "imgUrl": "https://upload.wikimedia.org/wikipedia/en/3/38/GT_sommartider_single_cover.jpg"
   },
-  { "id": 3, "songTitle": "Sommartider" },
-  { "id": 5, "songTitle": "Use somebody" }
+
+  {
+    "id": 2,
+    "songTitle": "Africa",
+    "artist": "Toto",
+    "year": "1982",
+    "genre": "Pop",
+    "imgUrl": "https://upload.wikimedia.org/wikipedia/en/1/1f/Toto_-_Africa.jpg"
+  }
 ]
