@@ -79,14 +79,21 @@ function onSearch(e) {
       let currentGenre = songs[i].genre.toUpperCase();
 
       //om vi hittar sökt artist i currentSong pushar vi den till filteredList
-      if (currentArtist.includes(searchedArtist)) {
+      if (currentArtist.includes(searchedArtist) && searchedArtist.length > 0) {
         // kolla oatt den inte innehåller objektet redan
-        filteredList.push(songs[i]);
+        if (!filteredList.includes(songs[i])) {
+          filteredList.push(songs[i]);
+        }
       }
-      //   if (currentSongTitle.includes(searchedSongTitle) && currentArtist != "") {
-      //     // kolla oatt den inte innehåller objektet redan
-      //     filteredList.push(songs[i]);
-      //   }
+      if (
+        currentSongTitle.includes(searchedSongTitle) &&
+        searchedSongTitle.length > 0
+      ) {
+        // kolla oatt den inte innehåller objektet redan
+        if (!filteredList.includes(songs[i])) {
+          filteredList.push(songs[i]);
+        }
+      }
 
       //ifsats för titel
       //ifsats för år
