@@ -3,6 +3,7 @@ class Api {
   constructor(url) {
     this.url = url;
   }
+  // Använder fetch metoden för att hämta data från json filen
   getAll() {
     return fetch(this.url)
       .then((result) => result.json())
@@ -10,9 +11,13 @@ class Api {
       .catch((err) => console.log(err));
   }
 
+  // skickar ett postrequest med json
   create(data) {
+    // omvandlar objektet till json och sparar i JSONData
     const JSONData = JSON.stringify(data);
     console.log(`Sending ${JSONData} to ${this.url}`);
+
+    //Skickar ett POST request med JSONData
     const request = new Request(this.url, {
       method: "POST",
       body: JSONData,
@@ -28,8 +33,6 @@ class Api {
   }
 
   remove(id) {
-    // console.log(`Removing task with id ${id}`);
-
     return fetch(`${this.url}/${id}`, {
       method: "DELETE",
     })
